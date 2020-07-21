@@ -10,5 +10,6 @@
     <color name="dark_blue">#1d1f3e</color>
     <color name="dark_blue_card">#262845</color>
     <color name="neon_green">#69F0AE</color>
+    <color name="neon_green_translucent">#3369F0AE</color>
     <color name="off_white">#FAFAFA</color>
 </resources>

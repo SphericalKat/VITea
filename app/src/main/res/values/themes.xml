@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.VITea" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/dark_blue_card</item>
+        <item name="colorPrimary">@color/neon_green</item>
         <item name="colorPrimaryDark">@color/dark_blue</item>
         <item name="colorOnPrimary">@color/off_white</item>
         <!-- Secondary brand color. -->
@@ -13,7 +13,8 @@
         <item name="android:statusBarColor">@color/dark_blue</item>
         <!-- Customize your theme here. -->
         <item name="android:colorBackground">@color/dark_blue</item>
-        <item name="android:navigationBarColor">@color/dark_blue</item>
+        <item name="android:navigationBarColor">@color/dark_blue_card</item>
+        <item name="fontFamily">@font/circularstd_medium</item>
     </style>
 
     <style name="ProgressDialogTheme" parent="@android:style/Theme.Material.Dialog">
