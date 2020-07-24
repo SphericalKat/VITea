@@ -9,21 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.vitea.R
 import com.example.vitea.adapters.TimeTableAdapter
 import com.example.vitea.models.ApiResult
+import com.example.vitea.models.timetable.Lecture
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_time_table.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class TimeTableFragment : Fragment() {
-    private val timeTableAdapter by lazy {
-        TimeTableAdapter(requireContext()) {
-            val action =
-                TimeTableFragmentDirections
-                    .actionTimeTableFragmentToAttendanceFragment(it.getAttendanceDetails.toTypedArray())
-            findNavController().navigate(action)
-        }
-    }
+
+    private var dayList = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
     private val viewModel by sharedViewModel<MainViewModel>()
 
     override fun onCreateView(
@@ -33,27 +30,24 @@ class TimeTableFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        timeTableRecyclerview.apply {
-            adapter = timeTableAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
-        (requireActivity() as MainActivity).showProgressDialog()
+        pager.adapter = DayAdapter(this)
+        TabLayoutMediator(tabLayout, pager) { tab, position ->
+            tab.text = dayList[position]
+        }.attach()
+
         viewModel.timeTable.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 ApiResult.Status.LOADING -> {
                     viewModel.getTimeTable("17BEE0054")
                 }
 
-                ApiResult.Status.ERROR -> {
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-                ApiResult.Status.SUCCESS -> {
-                    (requireActivity() as MainActivity).hideProgressDialog()
-                    timeTableAdapter.updateData(it.data?.timeTable?.FRI!!)
-                }
+                else -> {}
             }
         })
+    }
+
+    class DayAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+        override fun getItemCount() = 7
+        override fun createFragment(position: Int) = DayFragment.newInstance(position)
     }
 }
