@@ -1,6 +1,6 @@
 package com.example.vitea.models.timetable
 
-data class Day(
+data class Lecture(
     val venue: String,
     val img: String,
     val courseType: String,

@@ -12,4 +12,6 @@
     <color name="neon_green">#69F0AE</color>
     <color name="neon_green_translucent">#3369F0AE</color>
     <color name="off_white">#FAFAFA</color>
+    <color name="pastel_yellow">#FDFD96</color>
+    <color name="pastel_red">#FF6961</color>
 </resources>

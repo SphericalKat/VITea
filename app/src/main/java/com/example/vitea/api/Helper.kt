@@ -1,0 +1,24 @@
+package com.example.vitea.api
+
+import com.example.vitea.BuildConfig
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import java.util.concurrent.TimeUnit
+
+fun getOkHttpClient(): OkHttpClient {
+
+    val httpClient = OkHttpClient.Builder()
+
+    if (BuildConfig.DEBUG) {
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        httpClient.addInterceptor(
+            httpLoggingInterceptor.apply {
+                httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            }
+        )
+    }
+
+    return httpClient.readTimeout(60, TimeUnit.SECONDS)
+        .connectTimeout(60, TimeUnit.SECONDS)
+        .build()
+}

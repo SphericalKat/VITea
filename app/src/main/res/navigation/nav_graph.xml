@@ -9,10 +9,19 @@
         android:id="@+id/timeTableFragment"
         android:name="com.example.vitea.ui.TimeTableFragment"
         android:label="fragment_time_table"
-        tools:layout="@layout/fragment_time_table" />
+        tools:layout="@layout/fragment_time_table" >
+        <action
+            android:id="@+id/action_timeTableFragment_to_attendanceFragment"
+            app:destination="@id/attendanceFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.vitea.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/attendanceFragment"
+        android:name="com.example.vitea.AttendanceFragment"
+        android:label="fragment_attendance"
+        tools:layout="@layout/fragment_attendance" />
 </navigation>

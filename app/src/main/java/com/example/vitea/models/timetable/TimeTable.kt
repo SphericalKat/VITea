@@ -1,9 +1,9 @@
 package com.example.vitea.models.timetable
 
 data class TimeTable(
-    val tHU: List<Day>,
-    val tUE: List<Day>,
-    val wED: List<Day>,
-    val fRI: List<Day>,
-    val mON: List<Day>
+    val THU: List<Lecture>,
+    val TUE: List<Lecture>,
+    val WED: List<Lecture>,
+    val FRI: List<Lecture>,
+    val MON: List<Lecture>
 )
