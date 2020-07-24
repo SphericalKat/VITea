@@ -1,4 +1,4 @@
-package com.example.vitea.ui
+package com.example.vitea.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,7 +29,9 @@ class DayFragment : Fragment() {
     private val timeTableAdapter by lazy {
         TimeTableAdapter(requireContext()) {
             val action =
-                TimeTableFragmentDirections.actionTimeTableFragmentToAttendanceFragment(it.getAttendanceDetails.toTypedArray())
+                TimeTableFragmentDirections.actionTimeTableFragmentToAttendanceFragment(
+                    it.getAttendanceDetails.toTypedArray()
+                )
             findNavController().navigate(action)
         }
     }
@@ -65,16 +67,18 @@ class DayFragment : Fragment() {
 
                 ApiResult.Status.SUCCESS -> {
                     (requireActivity() as MainActivity).hideProgressDialog()
-                    val dayData: List<Lecture> = when (day) {
-                        0 -> it.data?.timeTable?.MON!!
-                        1 -> it.data?.timeTable?.TUE!!
-                        2 -> it.data?.timeTable?.WED!!
-                        3 -> it.data?.timeTable?.THU!!
-                        4 -> it.data?.timeTable?.FRI!!
-                        else -> it.data?.timeTable?.MON!!
-                    }
+                    if (!it.data?.timeTable?.MON.isNullOrEmpty()) {
+                        val dayData: List<Lecture> = when (day) {
+                            0 -> it.data?.timeTable?.MON!!
+                            1 -> it.data?.timeTable?.TUE!!
+                            2 -> it.data?.timeTable?.WED!!
+                            3 -> it.data?.timeTable?.THU!!
+                            4 -> it.data?.timeTable?.FRI!!
+                            else -> it.data?.timeTable?.MON!!
+                        }
 
-                    timeTableAdapter.updateData(dayData)
+                        timeTableAdapter.updateData(dayData)
+                    }
                 }
                 else -> {
                 }

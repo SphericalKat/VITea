@@ -1,5 +1,7 @@
-package com.example.vitea.ui
+package com.example.vitea.ui.home
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -11,18 +13,26 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.vitea.R
+import com.example.vitea.ui.auth.AuthActivity
 import com.example.vitea.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 
 class MainActivity : BaseActivity() {
 
     private val navController by lazy {
         (supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment).findNavController()
     }
+    private val prefs by inject<SharedPreferences>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (!prefs.contains("reg_no")) {
+            startActivity(Intent(this, AuthActivity::class.java))
+            finish()
+        }
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/timeTableFragment"
-        android:name="com.example.vitea.ui.TimeTableFragment"
+        android:name="com.example.vitea.ui.home.TimeTableFragment"
         android:label="fragment_time_table"
         tools:layout="@layout/fragment_time_table" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/dayFragment"
-        android:name="com.example.vitea.ui.DayFragment"
+        android:name="com.example.vitea.ui.home.DayFragment"
         android:label="fragment_day"
         tools:layout="@layout/fragment_day" />
 </navigation>

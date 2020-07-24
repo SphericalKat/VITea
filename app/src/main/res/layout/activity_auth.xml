@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.auth.AuthActivity">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/titleText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_icon" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center"
+        android:text="Welcome to VITea!"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+        android:textColor="@color/neon_green"
+        app:layout_constraintBottom_toTopOf="@+id/bodyText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:ignore="HardcodedText" />
+
+
+    <TextView
+        android:id="@+id/bodyText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="This is your starting point for a beautiful university app experience. We strive to make it fluent and simple for you to use"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        app:layout_constraintBottom_toTopOf="@+id/regNoTIL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleText"
+        tools:ignore="HardcodedText" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/regNoTIL"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:hint="Registration no"
+        app:helperText="Enter your registration number here"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bodyText"
+        tools:ignore="HardcodedText">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:inputType="textCapCharacters"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/neon_green_translucent"
+        android:text="Login"
+        android:textColor="@color/neon_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/regNoTIL"
+        tools:ignore="HardcodedText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

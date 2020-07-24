@@ -1,4 +1,4 @@
-package com.example.vitea.ui
+package com.example.vitea.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
