@@ -20,7 +20,7 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class TimeTableFragment : Fragment() {
 
-    private var dayList = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+    private var dayList = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
     private val viewModel by sharedViewModel<MainViewModel>()
 
     override fun onCreateView(
@@ -47,7 +47,7 @@ class TimeTableFragment : Fragment() {
     }
 
     class DayAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-        override fun getItemCount() = 7
+        override fun getItemCount() = 5
         override fun createFragment(position: Int) = DayFragment.newInstance(position)
     }
 }

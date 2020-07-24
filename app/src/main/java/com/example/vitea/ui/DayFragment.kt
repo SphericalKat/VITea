@@ -71,8 +71,6 @@ class DayFragment : Fragment() {
                         2 -> it.data?.timeTable?.WED!!
                         3 -> it.data?.timeTable?.THU!!
                         4 -> it.data?.timeTable?.FRI!!
-                        5 -> listOf()
-                        6 -> listOf()
                         else -> it.data?.timeTable?.MON!!
                     }
 
