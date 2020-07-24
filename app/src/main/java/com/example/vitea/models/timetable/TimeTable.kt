@@ -1,5 +1,8 @@
 package com.example.vitea.models.timetable
 
+import androidx.annotation.Keep
+
+@Keep
 data class TimeTable(
     val THU: List<Lecture>,
     val TUE: List<Lecture>,

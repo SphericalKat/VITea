@@ -1,5 +1,8 @@
 package com.example.vitea.models.timetable
 
+import androidx.annotation.Keep
+
+@Keep
 data class Lecture(
     val venue: String,
     val img: String,
