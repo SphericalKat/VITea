@@ -9,16 +9,23 @@
         <item name="colorSecondary">@color/neon_green</item>
         <item name="colorSecondaryVariant">@color/neon_green</item>
         <item name="colorOnSecondary">@color/off_white</item>
+        <item name="colorSurface">@color/dark_blue</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/dark_blue</item>
         <!-- Customize your theme here. -->
         <item name="android:colorBackground">@color/dark_blue</item>
         <item name="android:navigationBarColor">@color/dark_blue_card</item>
         <item name="fontFamily">@font/circularstd_medium</item>
+        <item name="textAppearanceButton">@style/TextAppearance.App.Button</item>
     </style>
 
     <style name="ProgressDialogTheme" parent="@android:style/Theme.Material.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+    <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/circularstd_medium</item>
+        <item name="android:fontFamily">@font/circularstd_medium</item>
     </style>
 </resources>

@@ -23,5 +23,9 @@
         android:id="@+id/attendanceFragment"
         android:name="com.example.vitea.AttendanceFragment"
         android:label="fragment_attendance"
-        tools:layout="@layout/fragment_attendance" />
+        tools:layout="@layout/fragment_attendance" >
+        <argument
+            android:name="attendanceDetails"
+            app:argType="com.example.vitea.models.timetable.GetAttendanceDetails[]" />
+    </fragment>
 </navigation>

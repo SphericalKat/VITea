@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val webRepo: WebRepo): ViewModel() {
-    val timeTable = MutableLiveData<ApiResult<TimeTableResponse>>()
+    val timeTable = MutableLiveData<ApiResult<TimeTableResponse>>(ApiResult.loading())
 
     fun getTimeTable(regNo: String) = viewModelScope.launch(Dispatchers.IO) {
         val result = webRepo.getTimeTableAsync(regNo)

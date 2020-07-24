@@ -16,10 +16,11 @@ import kotlinx.android.synthetic.main.fragment_time_table.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class TimeTableFragment : Fragment() {
-    private val linearLayoutManager by lazy { LinearLayoutManager(requireContext()) }
     private val timeTableAdapter by lazy {
         TimeTableAdapter(requireContext()) {
-            val action = TimeTableFragmentDirections.actionTimeTableFragmentToAttendanceFragment()
+            val action =
+                TimeTableFragmentDirections
+                    .actionTimeTableFragmentToAttendanceFragment(it.getAttendanceDetails.toTypedArray())
             findNavController().navigate(action)
         }
     }
@@ -28,27 +29,24 @@ class TimeTableFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_time_table, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.fragment_time_table, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         timeTableRecyclerview.apply {
             adapter = timeTableAdapter
-            layoutManager = linearLayoutManager
+            layoutManager = LinearLayoutManager(requireContext())
         }
-        viewModel.getTimeTable("17BEE0054")
         (requireActivity() as MainActivity).showProgressDialog()
         viewModel.timeTable.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 ApiResult.Status.LOADING -> {
-
+                    viewModel.getTimeTable("17BEE0054")
                 }
 
                 ApiResult.Status.ERROR -> {
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT)
+                        .show()
                 }
 
                 ApiResult.Status.SUCCESS -> {
