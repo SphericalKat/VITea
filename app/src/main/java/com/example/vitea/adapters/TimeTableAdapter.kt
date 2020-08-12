@@ -12,17 +12,12 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.timetable_item.*
 
 class TimeTableAdapter(
-    private val context: Context,
     private val listener: (Lecture) -> Unit
 ) : RecyclerView.Adapter<TimeTableAdapter.TimeTableViewHolder>() {
     private var timeTable: List<Lecture> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TimeTableViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-            R.layout.timetable_item,
-            parent,
-            false
-        )
+        LayoutInflater.from(parent.context).inflate(R.layout.timetable_item, parent, false)
     )
 
     override fun getItemCount() = timeTable.size
@@ -49,18 +44,18 @@ class TimeTableAdapter(
 
         when (lecture.attendance) {
             in 90..100 -> {
-                holder.percentText.setTextColor(ContextCompat.getColor(context, R.color.neon_green))
+                holder.percentText.setTextColor(ContextCompat.getColor(holder.percentText.context, R.color.neon_green))
             }
             in 75..90 -> {
                 holder.percentText.setTextColor(
                     ContextCompat.getColor(
-                        context,
+                        holder.percentText.context,
                         R.color.pastel_yellow
                     )
                 )
             }
             else -> {
-                holder.percentText.setTextColor(ContextCompat.getColor(context, R.color.pastel_red))
+                holder.percentText.setTextColor(ContextCompat.getColor(holder.percentText.context, R.color.pastel_red))
             }
         }
     }

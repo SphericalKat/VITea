@@ -18,16 +18,11 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 private const val ARG_DAY_INDEX = "day"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DayFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DayFragment : Fragment() {
     private var day: Int? = null
     private val viewModel by sharedViewModel<MainViewModel>()
     private val timeTableAdapter by lazy {
-        TimeTableAdapter(requireContext()) {
+        TimeTableAdapter {
             val action =
                 TimeTableFragmentDirections.actionTimeTableFragmentToAttendanceFragment(
                     it.getAttendanceDetails.toTypedArray()
