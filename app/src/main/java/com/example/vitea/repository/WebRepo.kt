@@ -1,8 +1,9 @@
 package com.example.vitea.repository
 
 import com.example.vitea.api.WebClient
+import javax.inject.Inject
 
-class WebRepo(private val webClient: WebClient) : BaseRepo() {
+class WebRepo @Inject constructor(private val webClient: WebClient) : BaseRepo() {
     fun getTimeTable(regNo: String) = makeRequest {
         webClient.getTimeTable(regNo)
     }

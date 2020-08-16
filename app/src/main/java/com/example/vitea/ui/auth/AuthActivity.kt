@@ -8,12 +8,15 @@ import com.example.vitea.R
 import com.example.vitea.ui.base.BaseActivity
 import com.example.vitea.ui.home.MainActivity
 import com.example.vitea.utils.PreferenceHelper.set
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_auth.*
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AuthActivity : BaseActivity() {
-    private val prefs by inject<SharedPreferences>()
+    @Inject lateinit var prefs: SharedPreferences
+
     private val years = listOf("16", "17", "18", "19", "20")
 
     override fun onCreate(savedInstanceState: Bundle?) {

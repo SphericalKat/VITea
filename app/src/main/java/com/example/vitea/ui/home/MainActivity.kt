@@ -15,15 +15,17 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.vitea.R
 import com.example.vitea.ui.auth.AuthActivity
 import com.example.vitea.ui.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private val navController by lazy {
         (supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment).findNavController()
     }
-    private val prefs by inject<SharedPreferences>()
+    @Inject lateinit var prefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

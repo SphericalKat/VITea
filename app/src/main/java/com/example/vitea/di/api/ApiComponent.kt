@@ -1,24 +1,40 @@
 package com.example.vitea.di.api
 
-import com.example.vitea.api.WebClient
 import com.example.vitea.api.WebService
 import com.example.vitea.api.getOkHttpClient
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 private const val BASE_URL = "https://vitian-wrapper.herokuapp.com/"
-val apiModule = module {
-    factory { getOkHttpClient() }
 
-    single {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(get())
-            .build()
-    }
+@Module
+@InstallIn(ApplicationComponent::class)
+object ApiComponent {
+    @Provides
+    @Singleton
+    fun providesRetrofitService(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpClient)
+        .build()
+}
 
-    factory { get<Retrofit>().create(WebService::class.java) }
-    factory { WebClient(get()) }
+@Module
+@InstallIn(ApplicationComponent::class)
+object WebServiceModule {
+    @Provides
+    fun providesWebService(retrofit: Retrofit): WebService = retrofit.create(WebService::class.java)
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+object OkHttpClientModule {
+    @Provides
+    fun providesOkHttpClient() = getOkHttpClient()
 }

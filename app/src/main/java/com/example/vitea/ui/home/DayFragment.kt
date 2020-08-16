@@ -6,21 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vitea.R
 import com.example.vitea.adapters.TimeTableAdapter
 import com.example.vitea.models.ApiResult
 import com.example.vitea.models.timetable.Lecture
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_day.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 private const val ARG_DAY_INDEX = "day"
 
+@AndroidEntryPoint
 class DayFragment : Fragment() {
     private var day: Int? = null
-    private val viewModel by sharedViewModel<MainViewModel>()
+    private val viewModel: MainViewModel by navGraphViewModels(R.id.nav_graph) {
+        defaultViewModelProviderFactory
+    }
     private val timeTableAdapter by lazy {
         TimeTableAdapter {
             val action =

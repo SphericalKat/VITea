@@ -1,6 +1,7 @@
 package com.example.vitea.ui.home
 
 import android.content.SharedPreferences
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,10 +11,12 @@ import com.example.vitea.repository.WebRepo
 import com.google.gson.Gson
 import com.example.vitea.utils.PreferenceHelper.get
 import com.example.vitea.utils.PreferenceHelper.set
+import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(private val webRepo: WebRepo, private val prefs: SharedPreferences): ViewModel() {
+class MainViewModel @ViewModelInject constructor(private val webRepo: WebRepo, private val prefs: SharedPreferences): ViewModel() {
     val timeTable = MutableLiveData<ApiResult<TimeTableResponse>>(ApiResult.loading())
 
     fun getTimeTable(regNo: String) = viewModelScope.launch(Dispatchers.IO) {
