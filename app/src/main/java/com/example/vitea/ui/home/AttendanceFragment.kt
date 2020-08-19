@@ -1,10 +1,11 @@
-package com.example.vitea
+package com.example.vitea.ui.home
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.vitea.R
 import com.example.vitea.adapters.AttendanceAdapter
 import com.example.vitea.models.timetable.GetAttendanceDetails
 import kotlinx.android.synthetic.main.fragment_attendance.*

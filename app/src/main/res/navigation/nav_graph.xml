@@ -20,12 +20,12 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.vitea.ProfileFragment"
+        android:name="com.example.vitea.ui.home.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/attendanceFragment"
-        android:name="com.example.vitea.AttendanceFragment"
+        android:name="com.example.vitea.ui.home.AttendanceFragment"
         android:label="fragment_attendance"
         tools:layout="@layout/fragment_attendance" >
         <argument

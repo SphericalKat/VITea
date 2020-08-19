@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'androidx.navigation.safeargs.kotlin'
     id 'dagger.hilt.android.plugin'
+    id "scabbard.gradle" version "0.4.0"
 }
 
 android {
@@ -38,6 +39,10 @@ android {
     androidExtensions {
         experimental = true
     }
+}
+
+scabbard {
+    enabled true
 }
 
 dependencies {

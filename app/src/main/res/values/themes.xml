@@ -14,7 +14,7 @@
         <item name="android:statusBarColor">@color/dark_blue</item>
         <!-- Customize your theme here. -->
         <item name="android:colorBackground">@color/dark_blue</item>
-        <item name="android:navigationBarColor">@color/dark_blue_card</item>
+        <item name="android:navigationBarColor">@color/dark_blue</item>
         <item name="fontFamily">@font/circularstd_medium</item>
         <item name="textAppearanceButton">@style/TextAppearance.App.Button</item>
     </style>
