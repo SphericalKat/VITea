@@ -8,16 +8,18 @@ import androidx.lifecycle.viewModelScope
 import com.example.vitea.models.ApiResult
 import com.example.vitea.models.timetable.TimeTableResponse
 import com.example.vitea.repository.WebRepo
-import com.google.gson.Gson
 import com.example.vitea.utils.PreferenceHelper.get
 import com.example.vitea.utils.PreferenceHelper.set
-import dagger.hilt.android.scopes.ActivityScoped
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class MainViewModel @ViewModelInject constructor(private val webRepo: WebRepo, private val prefs: SharedPreferences): ViewModel() {
+class MainViewModel @ViewModelInject constructor(
+    private val webRepo: WebRepo,
+    private val prefs: SharedPreferences
+) : ViewModel() {
     val timeTable = MutableLiveData<ApiResult<TimeTableResponse>>(ApiResult.loading())
+    var doOnce = true
 
     fun getTimeTable(regNo: String) = viewModelScope.launch(Dispatchers.IO) {
         val gson = Gson()

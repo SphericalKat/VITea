@@ -2,13 +2,10 @@ package com.example.vitea.ui.home
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.vitea.R
@@ -24,7 +21,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class TimeTableFragment : Fragment() {
 
-    private var dayList = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+    private var dayList =
+        listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
     private val viewModel: MainViewModel by navGraphViewModels(R.id.nav_graph) {
         defaultViewModelProviderFactory
     }
@@ -34,6 +32,27 @@ class TimeTableFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_time_table, container, false)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.settingsPage -> {
+                val action = TimeTableFragmentDirections.actionTimeTableFragmentToSettingsFragment()
+                findNavController().navigate(action)
+                true
+            }
+            else -> false
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,15 +75,20 @@ class TimeTableFragment : Fragment() {
         })
 
         pager.post {
-            val sdf = SimpleDateFormat("EEEE")
-            val d = Date()
-            val dayOfTheWeek: String = sdf.format(d)
-            pager.setCurrentItem(dayList.indexOf(dayOfTheWeek), true)
+            if (viewModel.doOnce) {
+                viewModel.doOnce = false
+                val sdf = SimpleDateFormat("EEEE")
+                val d = Date()
+                val dayOfWeek = sdf.format(d)
+                pager.setCurrentItem(dayList.indexOf(dayOfWeek), true)
+            }
         }
     }
 
-    class DayAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-        override fun getItemCount() = 5
+    class DayAdapter(
+        fragment: Fragment
+    ) : FragmentStateAdapter(fragment) {
+        override fun getItemCount() = 7
         override fun createFragment(position: Int) = DayFragment.newInstance(position)
     }
 }

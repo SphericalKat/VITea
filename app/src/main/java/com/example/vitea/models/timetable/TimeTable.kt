@@ -8,5 +8,7 @@ data class TimeTable(
     val TUE: List<Lecture>,
     val WED: List<Lecture>,
     val FRI: List<Lecture>,
-    val MON: List<Lecture>
+    val MON: List<Lecture>,
+    val SAT: List<Lecture>,
+    val SUN: List<Lecture>
 )

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:title="Classes">
+        <SwitchPreferenceCompat
+            app:key="alarms"
+            app:title="Class alarms"
+            app:summaryOff="Alarms will NOT ring to remind you of classes"
+            app:summaryOn="Alarms WILL ring to remind you of classes"
+            app:icon="@drawable/ic_alarm"
+            app:defaultValue="false" />
+
+        <SwitchPreferenceCompat
+            app:key="class_notifs"
+            app:title="Class notifications"
+            app:summaryOff="Notifications will NOT be shown to remind you of classes"
+            app:summaryOn="Notifications WILL be shown to remind you of classes"
+            app:icon="@drawable/ic_notifications" />
+    </PreferenceCategory>
+</PreferenceScreen>

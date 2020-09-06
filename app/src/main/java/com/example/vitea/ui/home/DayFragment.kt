@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -15,6 +14,8 @@ import com.example.vitea.R
 import com.example.vitea.adapters.TimeTableAdapter
 import com.example.vitea.models.ApiResult
 import com.example.vitea.models.timetable.Lecture
+import com.example.vitea.utils.hide
+import com.example.vitea.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_day.*
 
@@ -68,16 +69,22 @@ class DayFragment : Fragment() {
                 ApiResult.Status.SUCCESS -> {
                     (requireActivity() as MainActivity).hideProgressDialog()
                     if (!it.data?.timeTable?.MON.isNullOrEmpty()) {
+                        timeTableRecyclerview.show()
+                        noItemsText.hide()
                         val dayData: List<Lecture> = when (day) {
                             0 -> it.data?.timeTable?.MON!!
                             1 -> it.data?.timeTable?.TUE!!
                             2 -> it.data?.timeTable?.WED!!
                             3 -> it.data?.timeTable?.THU!!
                             4 -> it.data?.timeTable?.FRI!!
+                            5 -> it.data?.timeTable?.SAT!!
+                            6 -> it.data?.timeTable?.SUN!!
                             else -> it.data?.timeTable?.MON!!
                         }
-
                         timeTableAdapter.updateData(dayData)
+                    } else {
+                        timeTableRecyclerview.hide()
+                        noItemsText.show()
                     }
                 }
                 else -> {
@@ -87,13 +94,6 @@ class DayFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param day Parameter 1.
-         * @return A new instance of fragment DayFragment.
-         */
         @JvmStatic
         fun newInstance(day: Int) =
             DayFragment().apply {

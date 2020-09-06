@@ -1,5 +1,6 @@
 package com.example.vitea.di.api
 
+import com.example.vitea.BuildConfig
 import com.example.vitea.api.WebService
 import com.example.vitea.api.getOkHttpClient
 import dagger.Module
@@ -11,7 +12,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-private const val BASE_URL = "https://vitian-wrapper.herokuapp.com/"
+private val BASE_URL =
+    if (BuildConfig.DEBUG) "https://vitian-wrapper-debug.herokuapp.com/" else "https://vitian-wrapper.herokuapp.com/"
 
 @Module
 @InstallIn(ApplicationComponent::class)
