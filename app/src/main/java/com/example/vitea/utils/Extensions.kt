@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.vitea.utils
 
 import android.animation.Animator
