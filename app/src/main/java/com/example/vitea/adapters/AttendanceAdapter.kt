@@ -13,7 +13,7 @@ class AttendanceAdapter :
     private var attendanceDetails: Array<GetAttendanceDetails> = arrayOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttendanceViewHolder {
-        val binding = AttendanceItemBinding.inflate(LayoutInflater.from(parent.context))
+        val binding = AttendanceItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AttendanceViewHolder(binding)
     }
 

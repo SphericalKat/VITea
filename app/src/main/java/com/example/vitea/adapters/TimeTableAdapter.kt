@@ -14,7 +14,7 @@ class TimeTableAdapter(
     private var timeTable: List<Lecture> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeTableViewHolder {
-        val binding = TimetableItemBinding.inflate(LayoutInflater.from(parent.context))
+        val binding = TimetableItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TimeTableViewHolder(binding, listener)
     }
 
