@@ -24,14 +24,12 @@ open class BaseActivity : AppCompatActivity() {
     private lateinit var progressDialog: BaseProgressDialog
     private lateinit var internetLostDialog: BaseInternetDialog
 
-    //    private lateinit var firebaseToken: String
     private val isInternetAvailable = MutableLiveData<Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         progressDialog = BaseProgressDialog(this)
         internetLostDialog = BaseInternetDialog(this)
-//        fetchFirebaseToken()
         createNotificationChannel()
         setupNetworkListener()
     }
@@ -47,20 +45,6 @@ open class BaseActivity : AppCompatActivity() {
             manager.createNotificationChannel(notificationChannel)
         }
     }
-
-//    fun fetchFirebaseToken() {
-//        FirebaseInstanceId.getInstance().instanceId
-//            .addOnCompleteListener(OnCompleteListener { task ->
-//                if (!task.isSuccessful) {
-//                    return@OnCompleteListener
-//                }
-//                firebaseToken = task.result!!.token
-//            })
-//    }
-
-//    fun getFirebaseToken(): String {
-//        return firebaseToken
-//    }
 
     fun hideSoftKeyBoard() {
         val imm =
@@ -138,7 +122,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     private fun listenForInternetChanges() {
-        isInternetAvailable.observe(this, Observer {
+        isInternetAvailable.observe(this, {
             when (it) {
                 false -> showInternetLostDialog()
                 else -> hideInternetLostDialog()

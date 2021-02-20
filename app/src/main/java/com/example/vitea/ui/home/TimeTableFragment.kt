@@ -9,11 +9,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.vitea.R
+import com.example.vitea.databinding.FragmentTimeTableBinding
 import com.example.vitea.models.ApiResult
 import com.example.vitea.utils.PreferenceHelper.get
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_time_table.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -27,11 +27,16 @@ class TimeTableFragment : Fragment() {
         defaultViewModelProviderFactory
     }
     @Inject lateinit var prefs: SharedPreferences
+    private var _binding: FragmentTimeTableBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_time_table, container, false)
+    ): View? {
+        _binding = FragmentTimeTableBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,13 +61,13 @@ class TimeTableFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        pager.adapter =
+        binding.pager.adapter =
             DayAdapter(this)
-        TabLayoutMediator(tabLayout, pager) { tab, position ->
+        TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
             tab.text = dayList[position]
         }.attach()
 
-        viewModel.timeTable.observe(viewLifecycleOwner, Observer {
+        viewModel.timeTable.observe(viewLifecycleOwner, {
             when (it.status) {
                 ApiResult.Status.LOADING -> {
                     viewModel.getTimeTable(prefs["reg_no", "17BEE0001"].toString())
@@ -74,15 +79,20 @@ class TimeTableFragment : Fragment() {
             }
         })
 
-        pager.post {
+        binding.pager.post {
             if (viewModel.doOnce) {
                 viewModel.doOnce = false
                 val sdf = SimpleDateFormat("EEEE")
                 val d = Date()
                 val dayOfWeek = sdf.format(d)
-                pager.setCurrentItem(dayList.indexOf(dayOfWeek), true)
+                binding.pager.setCurrentItem(dayList.indexOf(dayOfWeek), true)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     class DayAdapter(

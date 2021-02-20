@@ -14,10 +14,10 @@ open class BaseRepo {
 
         when (response.status) {
             ApiResult.Status.SUCCESS -> {
-                emit(ApiResult.success(response.data))
+                emit(response)
             }
             ApiResult.Status.ERROR -> {
-                emit(ApiResult.error(response.message!!))
+                emit(response)
             }
             else -> {
             }

@@ -2,15 +2,14 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
     id 'dagger.hilt.android.plugin'
-    id "scabbard.gradle" version "0.4.0"
 }
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.vit.vitea"
@@ -36,13 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    androidExtensions {
-        experimental = true
+    buildFeatures {
+        viewBinding true
     }
-}
-
-scabbard {
-    enabled true
 }
 
 dependencies {
@@ -80,8 +75,8 @@ dependencies {
     implementation "io.coil-kt:coil:0.13.0"
 
     // Hilt for Dependency Injection
-    implementation "com.google.dagger:hilt-android:2.28-alpha"
-    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+    implementation "com.google.dagger:hilt-android:2.32-alpha"
+    kapt "com.google.dagger:hilt-android-compiler:2.32-alpha"
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
     kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha03'
 }

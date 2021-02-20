@@ -12,12 +12,12 @@ import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vitea.R
 import com.example.vitea.adapters.TimeTableAdapter
+import com.example.vitea.databinding.FragmentDayBinding
 import com.example.vitea.models.ApiResult
 import com.example.vitea.models.timetable.Lecture
 import com.example.vitea.utils.hide
 import com.example.vitea.utils.show
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_day.*
 
 private const val ARG_DAY_INDEX = "day"
 
@@ -36,6 +36,8 @@ class DayFragment : Fragment() {
             findNavController().navigate(action)
         }
     }
+    private var _binding: FragmentDayBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,17 +51,18 @@ class DayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_day, container, false)
+        _binding = FragmentDayBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        timeTableRecyclerview.apply {
+        binding.timeTableRecyclerview.apply {
             adapter = timeTableAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
         (requireActivity() as MainActivity).showProgressDialog()
-        viewModel.timeTable.observe(viewLifecycleOwner, Observer {
+        viewModel.timeTable.observe(viewLifecycleOwner, {
             when (it.status) {
                 ApiResult.Status.ERROR -> {
                     Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT)
@@ -69,28 +72,33 @@ class DayFragment : Fragment() {
                 ApiResult.Status.SUCCESS -> {
                     (requireActivity() as MainActivity).hideProgressDialog()
                     if (!it.data?.timeTable?.MON.isNullOrEmpty()) {
-                        timeTableRecyclerview.show()
-                        noItemsText.hide()
+                        binding.timeTableRecyclerview.show()
+                        binding.noItemsText.hide()
                         val dayData: List<Lecture> = when (day) {
                             0 -> it.data?.timeTable?.MON!!
                             1 -> it.data?.timeTable?.TUE!!
                             2 -> it.data?.timeTable?.WED!!
                             3 -> it.data?.timeTable?.THU!!
                             4 -> it.data?.timeTable?.FRI!!
-                            5 -> it.data?.timeTable?.SAT!!
-                            6 -> it.data?.timeTable?.SUN!!
+//                            5 -> it.data?.timeTable?.SAT!!
+//                            6 -> it.data?.timeTable?.SUN!!
                             else -> it.data?.timeTable?.MON!!
                         }
                         timeTableAdapter.updateData(dayData)
                     } else {
-                        timeTableRecyclerview.hide()
-                        noItemsText.show()
+                        binding.timeTableRecyclerview.hide()
+                        binding.noItemsText.show()
                     }
                 }
                 else -> {
                 }
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

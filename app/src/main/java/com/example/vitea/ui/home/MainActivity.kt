@@ -13,10 +13,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.vitea.R
+import com.example.vitea.databinding.ActivityMainBinding
 import com.example.vitea.ui.auth.AuthActivity
 import com.example.vitea.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,11 +25,15 @@ class MainActivity : BaseActivity() {
     private val navController by lazy {
         (supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment).findNavController()
     }
+
     @Inject lateinit var prefs: SharedPreferences
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (!prefs.contains("reg_no")) {
             startActivity(Intent(this, AuthActivity::class.java))
@@ -38,7 +42,7 @@ class MainActivity : BaseActivity() {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         val spannable = SpannableString("VITea")
         spannable.setSpan(
@@ -46,10 +50,10 @@ class MainActivity : BaseActivity() {
             2, 5,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        toolbar_text.text = spannable
+        binding.toolbarText.text = spannable
 
         setupActionBarWithNavController(navController)
-        NavigationUI.setupWithNavController(bottomNav, navController)
+        NavigationUI.setupWithNavController(binding.bottomNav, navController)
     }
 
     override fun onSupportNavigateUp() = navController.navigateUp()

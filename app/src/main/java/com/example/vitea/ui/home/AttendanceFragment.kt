@@ -7,19 +7,24 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vitea.R
 import com.example.vitea.adapters.AttendanceAdapter
+import com.example.vitea.databinding.FragmentAttendanceBinding
 import com.example.vitea.models.timetable.GetAttendanceDetails
-import kotlinx.android.synthetic.main.fragment_attendance.*
 
 class AttendanceFragment : Fragment() {
     private val args by navArgs<AttendanceFragmentArgs>()
     private val attendanceAdapter by lazy { AttendanceAdapter() }
     private lateinit var attendanceDetails: Array<GetAttendanceDetails>
+    private var _binding: FragmentAttendanceBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_attendance, container, false)
+    ): View? {
+        _binding = FragmentAttendanceBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +52,15 @@ class AttendanceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         attendanceDetails = args.attendanceDetails
-        attendanceRecyclerview.apply {
+        binding.attendanceRecyclerview.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = attendanceAdapter
         }
         attendanceAdapter.updateData(attendanceDetails)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

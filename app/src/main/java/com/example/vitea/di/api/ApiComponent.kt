@@ -6,7 +6,7 @@ import com.example.vitea.api.getOkHttpClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,7 +16,7 @@ private val BASE_URL =
     if (BuildConfig.DEBUG) "https://vitian-wrapper-debug.herokuapp.com/" else "https://vitian-wrapper.herokuapp.com/"
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object ApiComponent {
     @Provides
     @Singleton
@@ -28,14 +28,14 @@ object ApiComponent {
 }
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object WebServiceModule {
     @Provides
     fun providesWebService(retrofit: Retrofit): WebService = retrofit.create(WebService::class.java)
 }
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object OkHttpClientModule {
     @Provides
     fun providesOkHttpClient() = getOkHttpClient()
