@@ -16,6 +16,7 @@ import com.example.vitea.R
 import com.example.vitea.databinding.ActivityMainBinding
 import com.example.vitea.ui.auth.AuthActivity
 import com.example.vitea.ui.base.BaseActivity
+import com.example.vitea.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -28,11 +29,10 @@ class MainActivity : BaseActivity() {
 
     @Inject lateinit var prefs: SharedPreferences
 
-    private lateinit var binding: ActivityMainBinding
+    private val binding by viewBinding(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         if (!prefs.contains("reg_no")) {

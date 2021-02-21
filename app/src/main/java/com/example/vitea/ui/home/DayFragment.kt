@@ -17,12 +17,13 @@ import com.example.vitea.models.ApiResult
 import com.example.vitea.models.timetable.Lecture
 import com.example.vitea.utils.hide
 import com.example.vitea.utils.show
+import com.example.vitea.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val ARG_DAY_INDEX = "day"
 
 @AndroidEntryPoint
-class DayFragment : Fragment() {
+class DayFragment : Fragment(R.layout.fragment_day) {
     private var day: Int? = null
     private val viewModel: MainViewModel by navGraphViewModels(R.id.nav_graph) {
         defaultViewModelProviderFactory
@@ -36,23 +37,13 @@ class DayFragment : Fragment() {
             findNavController().navigate(action)
         }
     }
-    private var _binding: FragmentDayBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentDayBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             day = it.getInt(ARG_DAY_INDEX)
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentDayBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -94,11 +85,6 @@ class DayFragment : Fragment() {
                 }
             }
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {

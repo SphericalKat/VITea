@@ -2,9 +2,11 @@ package com.example.vitea.ui.home
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -12,6 +14,7 @@ import com.example.vitea.R
 import com.example.vitea.databinding.FragmentTimeTableBinding
 import com.example.vitea.models.ApiResult
 import com.example.vitea.utils.PreferenceHelper.get
+import com.example.vitea.utils.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -19,7 +22,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TimeTableFragment : Fragment() {
+class TimeTableFragment : Fragment(R.layout.fragment_time_table) {
 
     private var dayList =
         listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
@@ -27,16 +30,7 @@ class TimeTableFragment : Fragment() {
         defaultViewModelProviderFactory
     }
     @Inject lateinit var prefs: SharedPreferences
-    private var _binding: FragmentTimeTableBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentTimeTableBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private val binding by viewBinding(FragmentTimeTableBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,11 +82,6 @@ class TimeTableFragment : Fragment() {
                 binding.pager.setCurrentItem(dayList.indexOf(dayOfWeek), true)
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     class DayAdapter(

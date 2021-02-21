@@ -4,11 +4,11 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.vitea.R
 import com.example.vitea.databinding.ActivityAuthBinding
 import com.example.vitea.ui.base.BaseActivity
 import com.example.vitea.ui.home.MainActivity
 import com.example.vitea.utils.PreferenceHelper.set
+import com.example.vitea.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -16,12 +16,11 @@ import javax.inject.Inject
 class AuthActivity : BaseActivity() {
     @Inject lateinit var prefs: SharedPreferences
 
-    private lateinit var binding: ActivityAuthBinding
     private val years = listOf("16", "17", "18", "19", "20")
+    private val binding by viewBinding(ActivityAuthBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         if (prefs.contains("reg_no")) {

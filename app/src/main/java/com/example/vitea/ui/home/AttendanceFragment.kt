@@ -9,22 +9,13 @@ import com.example.vitea.R
 import com.example.vitea.adapters.AttendanceAdapter
 import com.example.vitea.databinding.FragmentAttendanceBinding
 import com.example.vitea.models.timetable.GetAttendanceDetails
+import com.example.vitea.utils.viewBinding
 
-class AttendanceFragment : Fragment() {
+class AttendanceFragment : Fragment(R.layout.fragment_attendance) {
     private val args by navArgs<AttendanceFragmentArgs>()
     private val attendanceAdapter by lazy { AttendanceAdapter() }
     private lateinit var attendanceDetails: Array<GetAttendanceDetails>
-    private var _binding: FragmentAttendanceBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentAttendanceBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private val binding by viewBinding(FragmentAttendanceBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,10 +48,5 @@ class AttendanceFragment : Fragment() {
             adapter = attendanceAdapter
         }
         attendanceAdapter.updateData(attendanceDetails)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
