@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -26,9 +27,7 @@ class TimeTableFragment : Fragment(R.layout.fragment_time_table) {
 
     private var dayList =
         listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
-    private val viewModel: MainViewModel by navGraphViewModels(R.id.nav_graph) {
-        defaultViewModelProviderFactory
-    }
+    private val viewModel: MainViewModel by activityViewModels()
     @Inject lateinit var prefs: SharedPreferences
     private val binding by viewBinding(FragmentTimeTableBinding::bind)
 
