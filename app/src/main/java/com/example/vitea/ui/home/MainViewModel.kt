@@ -1,10 +1,12 @@
 package com.example.vitea.ui.home
 
 import android.content.SharedPreferences
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vitea.models.ApiResult
+import com.example.vitea.models.profile.ProfileResponse
 import com.example.vitea.models.timetable.TimeTableResponse
 import com.example.vitea.repository.WebRepo
 import com.example.vitea.utils.PreferenceHelper.get
@@ -20,23 +22,38 @@ class MainViewModel @Inject constructor(
     private val webRepo: WebRepo,
     private val prefs: SharedPreferences
 ) : ViewModel() {
-    val timeTable = MutableLiveData<ApiResult<TimeTableResponse>>(ApiResult.loading())
+    private val _timeTable = MutableLiveData<ApiResult<TimeTableResponse>>(ApiResult.loading())
+    private val _profile = MutableLiveData<ApiResult<ProfileResponse>>(ApiResult.loading())
+
     var doOnce = true
+    private val gson = Gson()
+
+    val timeTable: LiveData<ApiResult<TimeTableResponse>>
+        get() = _timeTable
+    val profile: LiveData<ApiResult<ProfileResponse>>
+        get()  = _profile
 
     fun getTimeTable(regNo: String) = viewModelScope.launch(Dispatchers.IO) {
-        val gson = Gson()
         if (prefs["saved_timetable", ""] != "") {
             val saved = gson.fromJson(prefs["saved_timetable", ""], TimeTableResponse::class.java)
-            timeTable.postValue(ApiResult.success(saved))
+            _timeTable.postValue(ApiResult.success(saved))
         }
         val result = webRepo.getTimeTableAsync(regNo)
         result.data?.let {
             prefs["saved_timetable"] = gson.toJson(result.data)
         }
-        timeTable.postValue(result)
+        _timeTable.postValue(result)
     }
 
-    fun getProfile(regNo: String) {
-
+    fun getProfile(regNo: String) = viewModelScope.launch(Dispatchers.IO) {
+        if (prefs["saved_profile", ""] != "") {
+            val saved = gson.fromJson(prefs["saved_profile", ""], ProfileResponse::class.java)
+            _profile.postValue(ApiResult.success(saved))
+        }
+        val result = webRepo.getProfileAsync(regNo)
+        result.data?.let {
+            prefs["saved_profile"] = gson.toJson(result.data)
+        }
+        _profile.postValue(result)
     }
 }

@@ -9,7 +9,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.vitea.R
 import com.example.vitea.databinding.FragmentTimeTableBinding
@@ -60,17 +59,17 @@ class TimeTableFragment : Fragment(R.layout.fragment_time_table) {
             tab.text = dayList[position]
         }.attach()
 
-        viewModel.timeTable.observe(viewLifecycleOwner, {
+        viewModel.timeTable.observe(viewLifecycleOwner) {
             when (it.status) {
                 ApiResult.Status.LOADING -> {
-                    viewModel.getTimeTable(prefs["reg_no", "17BEE0001"].toString())
+                    viewModel.getTimeTable(prefs["reg_no", "20BCE0001"].toString())
                 }
 
                 else -> {
 //                    Toast.makeText(context, it.data.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
 
         binding.pager.post {
             if (viewModel.doOnce) {
