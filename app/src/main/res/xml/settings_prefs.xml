@@ -5,14 +5,14 @@
             app:defaultValue="false"
             app:icon="@drawable/ic_alarm"
             app:key="alarms"
-            app:summaryOff="Alarms will NOT ring to remind you of classes"
+            app:summaryOff="Alarms WILL NOT ring to remind you of classes"
             app:summaryOn="Alarms WILL ring to remind you of classes"
             app:title="Class alarms" />
 
         <SwitchPreferenceCompat
             app:icon="@drawable/ic_notifications"
             app:key="class_notifs"
-            app:summaryOff="Notifications will NOT be shown to remind you of classes"
+            app:summaryOff="Notifications WILL NOT be shown to remind you of classes"
             app:summaryOn="Notifications WILL be shown to remind you of classes"
             app:title="Class notifications" />
     </PreferenceCategory>

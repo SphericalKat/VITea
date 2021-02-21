@@ -1,5 +1,8 @@
 package com.example.vitea.models.profile
 
+import androidx.annotation.Keep
+
+@Keep
 data class ProfileResponse (
     val regNo: String,
     val img: String,
