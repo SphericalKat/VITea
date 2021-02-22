@@ -29,11 +29,31 @@ class MainActivity : BaseActivity() {
 
     @Inject lateinit var prefs: SharedPreferences
 
-    private val binding by viewBinding(ActivityMainBinding::inflate)
+    val binding by viewBinding(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        navController.addOnDestinationChangedListener { _, dest, _ ->
+            when (dest.id) {
+                R.id.timeTableFragment -> {
+                    setSpannableTitle("Timetable", 4, 9)
+                }
+
+                R.id.DAFragment -> {
+                    setSpannableTitle("DAs", 2, 3)
+                }
+
+                R.id.attendanceFragment -> {
+                    setSpannableTitle("Attendance",5, 10)
+                }
+
+                R.id.profileFragment -> {
+                    setSpannableTitle("Profile",3, 7)
+                }
+            }
+        }
 
         if (!prefs.contains("reg_no")) {
             startActivity(Intent(this, AuthActivity::class.java))
@@ -44,16 +64,19 @@ class MainActivity : BaseActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        val spannable = SpannableString("VITea")
-        spannable.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(this, R.color.neon_green)),
-            2, 5,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        binding.toolbarText.text = spannable
 
         setupActionBarWithNavController(navController)
         NavigationUI.setupWithNavController(binding.bottomNav, navController)
+    }
+
+    private fun setSpannableTitle(title: String, start: Int, end: Int) {
+        val spannable = SpannableString(title)
+        spannable.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(this, R.color.neon_green)),
+            start, end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.toolbarText.text = spannable
     }
 
     override fun onSupportNavigateUp() = navController.navigateUp()

@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/timeTableFragment"
         android:name="com.example.vitea.ui.home.TimeTableFragment"
-        android:label="fragment_time_table"
-        tools:layout="@layout/fragment_time_table" >
+        android:label="Timetable"
+        tools:layout="@layout/fragment_time_table">
         <action
             android:id="@+id/action_timeTableFragment_to_attendanceFragment"
             app:destination="@id/attendanceFragment"
@@ -24,13 +24,13 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.vitea.ui.home.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/attendanceFragment"
         android:name="com.example.vitea.ui.home.AttendanceFragment"
-        android:label="fragment_attendance"
-        tools:layout="@layout/fragment_attendance" >
+        android:label="Attendance"
+        tools:layout="@layout/fragment_attendance">
         <argument
             android:name="attendanceDetails"
             app:argType="com.example.vitea.models.timetable.GetAttendanceDetails[]" />
@@ -43,10 +43,10 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.vitea.ui.settings.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="Settings" />
     <fragment
         android:id="@+id/DAFragment"
         android:name="com.example.vitea.ui.home.da.DAFragment"
-        android:label="fragment_d_a"
+        android:label="DAs"
         tools:layout="@layout/fragment_d_a" />
 </navigation>

@@ -2,6 +2,9 @@ package com.example.vitea.ui.home.da
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.vitea.R
 import com.example.vitea.models.ApiResult
 import com.example.vitea.ui.home.MainActivity
 import com.example.vitea.ui.home.MainViewModel
@@ -40,9 +45,11 @@ class DAFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val mainActivity = requireActivity() as MainActivity
+
         return ComposeView(requireContext()).apply {
             setContent {
-                DaFragmentView(prefs, requireActivity() as MainActivity, viewModel)
+                DaFragmentView(prefs, mainActivity, viewModel)
             }
         }
     }
