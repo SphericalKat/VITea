@@ -2,4 +2,7 @@
     <string name="app_name">VITea</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="timetable_menu_title">Schedule</string>
+    <string name="profile_menu_title">Profile</string>
+    <string name="da_menu_title">DAs</string>
 </resources>

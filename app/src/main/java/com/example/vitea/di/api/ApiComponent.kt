@@ -1,6 +1,5 @@
 package com.example.vitea.di.api
 
-import com.example.vitea.BuildConfig
 import com.example.vitea.api.WebService
 import com.example.vitea.api.getOkHttpClient
 import dagger.Module
@@ -12,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-private val BASE_URL = "https://vitian-v2.herokuapp.com/"
+private const val BASE_URL = "https://vitian-v2.herokuapp.com/"
 
 @Module
 @InstallIn(SingletonComponent::class)

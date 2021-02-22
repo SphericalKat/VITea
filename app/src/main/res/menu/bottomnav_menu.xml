@@ -4,12 +4,19 @@
     <item
         android:id="@+id/timeTableFragment"
         android:icon="@drawable/ic_timetable"
-        android:title="Home"
+        android:title="@string/timetable_menu_title"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/DAFragment"
+        android:icon="@drawable/ic_pencil"
+        android:title="@string/da_menu_title"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_profile"
-        android:title="Profile"
+        android:title="@string/profile_menu_title"
         app:showAsAction="ifRoom" />
+
 </menu>
