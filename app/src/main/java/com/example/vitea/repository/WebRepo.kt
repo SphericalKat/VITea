@@ -10,4 +10,5 @@ class WebRepo @Inject constructor(private val webClient: WebClient) : BaseRepo()
 
     suspend fun getTimeTableAsync(regNo: String) = webClient.getTimeTable(regNo)
     suspend fun getProfileAsync(regNo: String) = webClient.getProfile(regNo)
+    suspend fun getDaAsync(regNo: String) = webClient.getDa(regNo)
 }

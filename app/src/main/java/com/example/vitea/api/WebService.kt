@@ -1,5 +1,6 @@
 package com.example.vitea.api
 
+import com.example.vitea.models.da.DAResponse
 import com.example.vitea.models.profile.ProfileResponse
 import com.example.vitea.models.timetable.TimeTableResponse
 import retrofit2.Response
@@ -12,4 +13,7 @@ interface WebService {
 
     @GET("profile/{regNo}")
     suspend fun getProfile(@Path("regNo") regNo: String): Response<ProfileResponse>
+
+    @GET("da/{regNo}")
+    suspend fun getDa(@Path("regNo") regNo: String): Response<DAResponse>
 }
