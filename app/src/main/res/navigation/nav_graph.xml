@@ -46,7 +46,7 @@
         android:label="SettingsFragment" />
     <fragment
         android:id="@+id/DAFragment"
-        android:name="com.example.vitea.DAFragment"
+        android:name="com.example.vitea.ui.home.da.DAFragment"
         android:label="fragment_d_a"
         tools:layout="@layout/fragment_d_a" />
 </navigation>
