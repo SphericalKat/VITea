@@ -19,6 +19,6 @@ data class Lecture(
     val name: String,
     val course: String,
     val outTime: String,
-    val attendance: Int,
+    val attendance: Float,
     val getAttendanceDetails: List<GetAttendanceDetails>
 )

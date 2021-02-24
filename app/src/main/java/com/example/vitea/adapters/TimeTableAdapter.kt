@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.vitea.R
 import com.example.vitea.databinding.TimetableItemBinding
 import com.example.vitea.models.timetable.Lecture
+import kotlin.math.ceil
+import kotlin.math.roundToInt
 
 class TimeTableAdapter(
     private val listener: (Lecture) -> Unit
@@ -48,7 +50,7 @@ class TimeTableAdapter(
                 }
             }
 
-            when (lecture.attendance) {
+            when (lecture.attendance.roundToInt()) {
                 in 90..100 -> {
                     binding.percentText.setTextColor(
                         ContextCompat.getColor(
