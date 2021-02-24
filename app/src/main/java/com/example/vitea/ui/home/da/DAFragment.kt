@@ -2,16 +2,13 @@ package com.example.vitea.ui.home.da
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -21,10 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.vitea.R
 import com.example.vitea.models.ApiResult
 import com.example.vitea.ui.home.MainActivity
 import com.example.vitea.ui.home.MainViewModel
@@ -72,12 +67,21 @@ fun DaFragmentView(prefs: SharedPreferences, mainActivity: MainActivity, viewMod
             ApiResult.Status.SUCCESS -> {
                 mainActivity.hideProgressDialog()
                 LazyColumn(modifier = Modifier.fillMaxHeight()) {
-                    items(viewModel.da.data!!.assignments.sortedWith(StringDateComparator)) { item ->
+                    val items = viewModel.da.data!!.assignments.sortedWith(StringDateComparator)
+                    itemsIndexed(items) { idx, item ->
                         Card(
-                            Modifier.fillMaxWidth().padding(start = 8.dp, end = 8.dp, top = 8.dp),
+                            Modifier.fillMaxWidth().padding(
+                                start = 8.dp,
+                                end = 8.dp,
+                                top = 8.dp,
+                                bottom = if (idx == items.size - 1) 8.dp else 0.dp // TODO: remove when completely migrated to compose
+                            ),
                             contentColor = Color(0xFF262845)
                         ) {
-                            Row(Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Row(
+                                Modifier.fillMaxWidth().padding(16.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
                                 Column(Modifier.fillMaxWidth(0.5f)) {
                                     Text(
                                         text = item.courseName,
