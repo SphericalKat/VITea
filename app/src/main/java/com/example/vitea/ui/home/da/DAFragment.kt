@@ -55,7 +55,6 @@ fun DaFragmentView(prefs: SharedPreferences, mainActivity: MainActivity, viewMod
     val regNo = prefs["reg_no", "20BCE0001"].toString()
     LaunchedEffect(prefs) {
         viewModel.getDa(regNo)
-//        Log.d("TAG", "OWOOWOWOWOW")
     }
 
     ViteaTheme {

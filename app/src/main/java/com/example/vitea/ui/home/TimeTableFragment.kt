@@ -42,11 +42,11 @@ class TimeTableFragment : Fragment(R.layout.fragment_time_table) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.settingsPage -> {
-                val action = TimeTableFragmentDirections.actionTimeTableFragmentToSettingsFragment()
-                findNavController().navigate(action)
-                true
-            }
+//            R.id.settingsPage -> {
+//                val action = TimeTableFragmentDirections.actionTimeTableFragmentToSettingsFragment()
+//                findNavController().navigate(action)
+//                true
+//            }
             else -> false
         }
     }
