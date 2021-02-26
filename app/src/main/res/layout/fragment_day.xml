@@ -20,9 +20,11 @@
 
     <TextView
         android:id="@+id/noItemsText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Nothing to see here"
+        android:layout_margin="24dp"
+        android:text="What ma? No classes ma?"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
         android:textColor="@color/neon_green"
         android:visibility="gone"

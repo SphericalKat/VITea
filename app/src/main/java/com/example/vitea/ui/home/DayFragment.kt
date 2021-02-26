@@ -1,15 +1,11 @@
 package com.example.vitea.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vitea.R
 import com.example.vitea.adapters.TimeTableAdapter
@@ -61,24 +57,21 @@ class DayFragment : Fragment(R.layout.fragment_day) {
 
                 ApiResult.Status.SUCCESS -> {
                     (requireActivity() as MainActivity).hideProgressDialog()
-                    if (!it.data?.timeTable?.MON.isNullOrEmpty()) {
-                        binding.timeTableRecyclerview.show()
-                        binding.noItemsText.hide()
-                        val dayData: List<Lecture> = when (day) {
-                            0 -> it.data?.timeTable?.MON!!
-                            1 -> it.data?.timeTable?.TUE!!
-                            2 -> it.data?.timeTable?.WED!!
-                            3 -> it.data?.timeTable?.THU!!
-                            4 -> it.data?.timeTable?.FRI!!
-//                            5 -> it.data?.timeTable?.SAT!!
-//                            6 -> it.data?.timeTable?.SUN!!
-                            else -> it.data?.timeTable?.MON!!
-                        }
-                        timeTableAdapter.updateData(dayData)
-                    } else {
+                    val dayData: List<Lecture> = when (day) {
+                        0 -> it.data?.timeTable?.MON ?: listOf()
+                        1 -> it.data?.timeTable?.TUE ?: listOf()
+                        2 -> it.data?.timeTable?.WED ?: listOf()
+                        3 -> it.data?.timeTable?.THU ?: listOf()
+                        4 -> it.data?.timeTable?.FRI ?: listOf()
+                        5 -> it.data?.timeTable?.SAT ?: listOf()
+                        else -> it.data?.timeTable?.SUN ?: listOf()
+                    }
+                    if (dayData.isNullOrEmpty()) {
                         binding.timeTableRecyclerview.hide()
                         binding.noItemsText.show()
                     }
+                    timeTableAdapter.updateData(dayData)
+
                 }
                 else -> {
                 }
