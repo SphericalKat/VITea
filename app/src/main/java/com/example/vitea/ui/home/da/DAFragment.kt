@@ -66,7 +66,7 @@ fun DaFragmentView(prefs: SharedPreferences, mainActivity: MainActivity, viewMod
             ApiResult.Status.SUCCESS -> {
                 mainActivity.hideProgressDialog()
                 LazyColumn(modifier = Modifier.fillMaxHeight()) {
-                    val items = viewModel.da.data!!.assignments.sortedWith(StringDateComparator)
+                    val items = viewModel.da.data?.assignments?.sortedWith(StringDateComparator) ?: listOf()
                     itemsIndexed(items) { idx, item ->
                         Card(
                             Modifier.fillMaxWidth().padding(
