@@ -42,7 +42,7 @@ class TimeTableAdapter(
             binding.slotText.text = lecture.slot
             binding.percentText.text = "${lecture.attendance}%"
             when (lecture.courseType) {
-                "ELA" -> {
+                "ELA", "LO" -> {
                     binding.lectureType.setImageResource(R.drawable.ic_lab)
                 }
                 else -> {
