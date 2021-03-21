@@ -37,8 +37,13 @@ class AttendanceAdapter :
                 binding.attendanceTimeText.text = item.classTime
                 binding.isPresentText.apply {
                     text = item.attendanceStatus
-                    val color =
-                        if (item.attendanceStatus == "Present") R.color.neon_green else R.color.pastel_red
+
+                    val color = when (item.attendanceStatus) {
+                        "Present" -> R.color.neon_green
+                        "On Duty" -> R.color.pastel_yellow
+                        else -> R.color.pastel_red
+                    }
+
                     setTextColor(ContextCompat.getColor(context, color))
                 }
             }
